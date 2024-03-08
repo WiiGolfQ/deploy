@@ -7,7 +7,8 @@ services:
         depends_on:
             - backend
         environment:
-            DISCORD_BOT_TOKEN: /run/secrets/discord_bot_token
+            DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+            API_URL: http://backend:8000
         secrets:
             - discord_bot_token
 
@@ -15,10 +16,10 @@ services:
         build: backend
         restart: always
         environment:
-            DJANGO_SECRET: /run/secrets/django_secret
-            POSTGRES_HOST: db
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: /run/secrets/postgres_password
+            DJANGO_SECRET: ${DJANGO_SECRET}
+            POSTGRES_HOST: ${POSTGRES_HOST}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         depends_on:
             - db
         networks:
@@ -32,9 +33,9 @@ services:
     db:
         image: postgres:latest
         environment:
-            POSTGRES_DB: db
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: /run/secrets/postgres_password
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         secrets:
             - postgres_password
         user: "postgres"
@@ -51,6 +52,8 @@ services:
 
     website:
         build: website
+        environment:
+            API_URL: http://backend:8000
         ports:
             - 3000:3000
         volumes:
