@@ -3,7 +3,7 @@ version: "3.7"
 services:
     discord-bot:
         build: discord-bot
-        restart: always
+        restart: on-failure
         depends_on:
             - backend
         environment:
@@ -12,18 +12,23 @@ services:
 
     backend:
         build: backend
-        restart: always
+        restart: on-failure
+        depends_on:
+            - db
         environment:
             DJANGO_SECRET: ${DJANGO_SECRET}
             POSTGRES_HOST: ${POSTGRES_HOST}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        depends_on:
-            - db
         networks:
             - backend-discord
             - backend-db
             - backend-frontend
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
 
     db:
         image: postgres:latest
