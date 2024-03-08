@@ -6,25 +6,37 @@ services:
         restart: always
         depends_on:
             - backend
+        environment:
+            DISCORD_BOT_TOKEN: /run/secrets/discord_bot_token
+        secrets:
+            - discord_bot_token
 
     backend:
         build: backend
         restart: always
         environment:
+            DJANGO_SECRET: /run/secrets/django_secret
             POSTGRES_HOST: db
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: /run/secrets/postgres_password
         depends_on:
             - db
         networks:
             - backend-discord
             - backend-db
             - backend-frontend
+        secrets:
+            - postgres_password
+            - django_secret
 
     db:
         image: postgres:latest
         environment:
-            POSTGRES_DB: postgres
+            POSTGRES_DB: db
             POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres # don't do this in production lol
+            POSTGRES_PASSWORD: /run/secrets/postgres_password
+        secrets:
+            - postgres_password
         user: "postgres"
         restart: always
         healthcheck:
