@@ -1,0 +1,69 @@
+version: "3.7"
+
+services:
+    discord-bot:
+        build: discord-bot
+        restart: always
+        depends_on:
+            - backend
+
+    backend:
+        build: backend
+        restart: always
+        secrets:
+            - db-password
+        environment:
+            POSTGRES_HOST: db
+        depends_on:
+            - db
+        networks:
+            - backend-discord
+            - backend-db
+            - backend-frontend
+
+    db:
+        image: postgres:latest
+        environment:
+            POSTGRES_DB: example
+            POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+        restart: always
+        healthcheck:
+            test: ["CMD", "pg_isready", "-q", "-d", "example"]
+            interval: 3s
+            retries: 5
+            start_period: 30s
+        secrets:
+            - db-password
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - backend-db
+
+    frontend:
+        build:
+            context: frontend
+            target: development
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend/src:/code/src
+            - /project/node_modules
+        networks:
+            - backend-frontend
+        depends_on:
+            - backend
+        expose:
+            - 5432
+        restart: always
+
+volumes:
+    postgres_data: {}
+
+secrets:
+    db-password:
+        file: db/password.txt
+
+networks:
+    backend-discord:
+    backend-db:
+    backend-frontend:
