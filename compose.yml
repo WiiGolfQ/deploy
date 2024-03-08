@@ -9,8 +9,6 @@ services:
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
             API_URL: http://backend:8000
-        secrets:
-            - discord_bot_token
 
     backend:
         build: backend
@@ -26,9 +24,6 @@ services:
             - backend-discord
             - backend-db
             - backend-frontend
-        secrets:
-            - postgres_password
-            - django_secret
 
     db:
         image: postgres:latest
