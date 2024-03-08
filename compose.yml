@@ -39,10 +39,8 @@ services:
         networks:
             - backend-db
 
-    frontend:
-        build:
-            context: frontend
-            target: development
+    website:
+        build: website
         ports:
             - 3000:3000
         volumes:
