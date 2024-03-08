@@ -9,7 +9,7 @@ services:
             - backend
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
-            API_URL: http://backend:8000
+            API_URL: ${API_URL}
 
     backend:
         build: backend
