@@ -3,6 +3,7 @@ version: "3.7"
 services:
     discord-bot:
         build: discord-bot
+        container_name: discord-bot
         restart: on-failure
         depends_on:
             - backend
@@ -12,6 +13,7 @@ services:
 
     backend:
         build: backend
+        container_name: backend
         restart: on-failure
         ports:
             - 8000:8000
@@ -34,6 +36,7 @@ services:
 
     db:
         image: postgres:latest
+        container_name: db
         environment:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_USER: ${POSTGRES_USER}
@@ -52,6 +55,7 @@ services:
 
     website:
         build: website
+        container_name: website
         environment:
             API_URL: http://backend:8000
         ports:
