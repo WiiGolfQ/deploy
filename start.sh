@@ -15,3 +15,5 @@ for dir in "${!repos[@]}"; do
         popd
     fi
 done
+
+docker compose up --build
