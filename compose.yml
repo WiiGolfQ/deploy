@@ -28,7 +28,7 @@ services:
         user: "postgres"
         restart: always
         healthcheck:
-            test: ["CMD", "pg_isready", "-q", "-d", "example"]
+            test: ["CMD", "pg_isready", "-q", "-d", "postgres"]
             interval: 3s
             retries: 5
             start_period: 30s
