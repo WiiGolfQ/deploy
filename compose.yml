@@ -10,8 +10,6 @@ services:
     backend:
         build: backend
         restart: always
-        secrets:
-            - db-password
         environment:
             POSTGRES_HOST: db
         depends_on:
@@ -24,16 +22,15 @@ services:
     db:
         image: postgres:latest
         environment:
-            POSTGRES_DB: example
-            POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres # don't do this in production lol
         restart: always
         healthcheck:
             test: ["CMD", "pg_isready", "-q", "-d", "example"]
             interval: 3s
             retries: 5
             start_period: 30s
-        secrets:
-            - db-password
         volumes:
             - postgres_data:/var/lib/postgresql/data
         networks:
@@ -50,16 +47,10 @@ services:
             - backend-frontend
         depends_on:
             - backend
-        expose:
-            - 5432
         restart: always
 
 volumes:
     postgres_data: {}
-
-secrets:
-    db-password:
-        file: db/password.txt
 
 networks:
     backend-discord:
