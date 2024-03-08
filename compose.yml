@@ -25,6 +25,7 @@ services:
             POSTGRES_DB: postgres
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres # don't do this in production lol
+        user: "postgres"
         restart: always
         healthcheck:
             test: ["CMD", "pg_isready", "-q", "-d", "example"]
