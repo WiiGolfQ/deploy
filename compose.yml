@@ -7,9 +7,13 @@ services:
         restart: on-failure
         depends_on:
             - backend
+        env_file:
+            - .env
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
             API_URL: ${API_URL}
+        networks:
+            - backend-discord
 
     backend:
         build: backend
@@ -19,6 +23,8 @@ services:
             - 8000:8000
         depends_on:
             - db
+        env_file:
+            - .env
         environment:
             DJANGO_SECRET: ${DJANGO_SECRET}
             POSTGRES_HOST: ${POSTGRES_HOST}
@@ -37,6 +43,8 @@ services:
     db:
         image: postgres:latest
         container_name: db
+        env_file:
+            - .env
         environment:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_USER: ${POSTGRES_USER}
@@ -56,8 +64,10 @@ services:
     website:
         build: website
         container_name: website
+        env_file:
+            - .env
         environment:
-            API_URL: http://backend:8000
+            API_URL: ${API_URL}
         ports:
             - 3000:3000
         volumes:

@@ -16,4 +16,6 @@ for dir in "${!repos[@]}"; do
     fi
 done
 
-docker compose up --build
+source .env
+docker compose -p wiigolfq up --build -d
+docker exec backend python manage.py migrate
