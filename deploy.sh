@@ -17,5 +17,12 @@ for dir in "${!repos[@]}"; do
 done
 
 source .env
-docker compose -p wiigolfq up --build -d
+
+if [ "$DEPLOY_WEBSITE" != "true" ]; then
+    echo "Skipping website"
+    docker compose -p wiigolfq up --build -d backend discord-bot
+else
+    docker compose -p wiigolfq up --build -d
+fi
+
 docker exec backend python manage.py migrate
