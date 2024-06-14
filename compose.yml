@@ -12,6 +12,10 @@ services:
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
             API_URL: ${API_URL}
+            QUEUE_CHANNEL_ID: ${QUEUE_CHANNEL_ID}
+            MATCH_CHANNEL_ID: ${MATCH_CHANNEL_ID}
+            LEADERBOARD_CHANNEL_ID: ${LEADERBOARD_CHANNEL_ID}
+
         networks:
             - backend-discord
 
