@@ -53,7 +53,7 @@ crontab -u $USER -e
 /*
 
 add the following to the cronjobs
-* * * * * <DEPLOY FOLDER LOCATION>/scripts/deploy_if_changed.sh > /dev/null 2>&1
+* * * * * <DEPLOY FOLDER LOCATION>/scripts/deploy_if_changed.sh
 
 */
 ```
