@@ -16,7 +16,8 @@ declare -A repos=(
 )
 
 # go to the deploy folder
-cd "$(dirname "$0")/.."
+DEPLOY_DIR="$(dirname "$0")/.."
+cd "$DEPLOY_DIR"
 
 for dir in "${!repos[@]}"; do
 
@@ -32,7 +33,7 @@ for dir in "${!repos[@]}"; do
     if [ "$LOCAL" != "$REMOTE" ]; then
         echo "Changes detected in $dir. Deploying"
         popd
-        ./deploy.sh "$dir"
+        scripts/deploy.sh "$dir"
     else
         popd
     fi
