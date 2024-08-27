@@ -18,11 +18,18 @@ done
 
 source .env
 
+docker compose -p wiigolfq up -d backend discord-bot
+
 if [ "$DEPLOY_WEBSITE" != "true" ]; then
-    echo "Skipping website"
-    docker compose -p wiigolfq up --build -d backend discord-bot
+    docker compose -p wiigolfq up -d website
 else
-    docker compose -p wiigolfq up --build -d
+    echo "Skipping website"
+fi
+
+if [ "$USE_CLOUDFLARE_TUNNEL" != "true" ]; then
+    docker compose -p wiigolfq up -d tunnel
+else
+    echo "Skipping tunnel"
 fi
 
 docker exec backend python manage.py migrate
