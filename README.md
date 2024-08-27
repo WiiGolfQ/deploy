@@ -47,6 +47,9 @@ sudo bash scripts/setup.sh
 once that script finishes, the website will be on port 80 and the backend will be on port 8000
 
 ```
+# set up a cron job to rebuild on commit
+
+sudo chmod -R $USER .
 sudo apt install cron -y
 crontab -u $USER -e
 
