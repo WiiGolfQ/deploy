@@ -47,7 +47,7 @@ sudo bash deploy.sh
 once that script finishes, the website will be on port 80 and the backend will be on port 8000
 
 # Cloudflare tunnel instructions
-1. follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/)'
+1. follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/)
 2. you should see a command it wants you to copy. get the tunnel token from there and set it as `TUNNEL_TOKEN`
 3. in the tunnels dashboard, click on the tunnel -> edit -> public hostname
 4. add the following public hostnames
