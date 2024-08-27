@@ -3,3 +3,5 @@ website
 discord-bot
 
 .env
+
+*.log
