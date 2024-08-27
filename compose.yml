@@ -81,6 +81,16 @@ services:
             - backend
         restart: always
 
+    tunnel:
+        image: cloudflare/cloudflared
+        container_name: tunnel
+        restart: unless-stopped
+        command: tunnel run
+        environment:
+            TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+        networks:
+            - backend-frontend
+
 volumes:
     postgres_data: {}
 
