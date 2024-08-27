@@ -41,10 +41,22 @@ nano .env  #change environment variables: see below
  
 ```
 # before running install docker: https://docs.docker.com/engine/install
-sudo bash deploy.sh
+sudo bash scripts/setup.sh
 ```
 
 once that script finishes, the website will be on port 80 and the backend will be on port 8000
+
+```
+sudo apt install cron -y
+crontab -u $USER -e
+
+/*
+
+add the following to the cronjobs
+* * * * * <DEPLOY FOLDER LOCATION>/scripts/deploy_if_changed.sh
+
+*/
+```
 
 # Cloudflare tunnel instructions
 1. follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel#1-create-a-tunnel)
