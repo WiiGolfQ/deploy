@@ -3,7 +3,6 @@ version: "3.7"
 services:
     discord-bot:
         build: discord-bot
-        container_name: discord-bot
         restart: on-failure
         depends_on:
             - backend
@@ -21,7 +20,7 @@ services:
 
     backend:
         build: backend
-        container_name: backend
+        hostname: backend
         restart: always
         ports:
             - 8000:8000
@@ -67,7 +66,6 @@ services:
 
     website:
         build: website
-        container_name: website
         env_file:
             - .env
         ports:
@@ -83,7 +81,6 @@ services:
 
     tunnel:
         image: cloudflare/cloudflared
-        container_name: tunnel
         restart: unless-stopped
         command: tunnel run
         environment:
