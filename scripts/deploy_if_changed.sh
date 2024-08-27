@@ -15,6 +15,9 @@ declare -A repos=(
     ["website"]="https://github.com/WiiGolfQ/website/"
 )
 
+# go to the deploy folder
+cd "$(dirname "$0")/.."
+
 for dir in "${!repos[@]}"; do
 
     if [ "$dir" == "website" ] && [ "$DEPLOY_WEBSITE" != "true" ]; then
