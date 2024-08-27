@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 declare -A repos=(
@@ -5,6 +6,10 @@ declare -A repos=(
     ["discord-bot"]="https://github.com/WiiGolfQ/discord-bot/"
     ["website"]="https://github.com/WiiGolfQ/website/"
 )
+
+if [ ! -f .env ]; then
+    echo "use `cp .env.example .env` and fill in the environment variables"
+fi
 
 for dir in "${!repos[@]}"; do
     if [ ! -d "$dir" ]; then
@@ -16,20 +21,18 @@ for dir in "${!repos[@]}"; do
     fi
 done
 
-source .env
+docker compose up -d backend discord-bot
 
-docker compose -p wiigolfq up -d backend discord-bot
+docker exec backend python manage.py migrate
 
-if [ "$DEPLOY_WEBSITE" != "true" ]; then
-    docker compose -p wiigolfq up -d website
+if [ "$DEPLOY_WEBSITE" == "true" ]; then
+    docker compose up -d website
 else
     echo "Skipping website"
 fi
 
-if [ "$USE_CLOUDFLARE_TUNNEL" != "true" ]; then
-    docker compose -p wiigolfq up -d tunnel
+if [ "$USE_CLOUDFLARE_TUNNEL" == "true" ]; then
+    docker compose up -d tunnel
 else
     echo "Skipping tunnel"
 fi
-
-docker exec backend python manage.py migrate
