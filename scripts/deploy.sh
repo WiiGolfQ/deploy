@@ -19,18 +19,18 @@ git pull
 popd
 
 echo "$(date) building"
-docker compose rm -f
-docker compose build
+sudo docker compose rm -f
+sudo docker compose build
 
 OLD_CONTAINER=$(docker ps -aqf name=$REPO)
 
 echo "$(date) scaling up $1"
-docker compose up -d --no-deps --scale $REPO=2 --no-recreate $REPO
+sudo docker compose up -d --no-deps --scale $REPO=2 --no-recreate $REPO
 
 sleep 30
 
 echo "$(date) scaling down $1"
-docker container rm -f $OLD_CONTAINER
-docker compose up -d --no-deps --scale $REPO=1 --no-recreate $REPO
+sudo docker container rm -f $OLD_CONTAINER
+sudo docker compose up -d --no-deps --scale $REPO=1 --no-recreate $REPO
 
 echo "$(date) deployed $1"
