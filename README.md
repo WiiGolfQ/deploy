@@ -50,6 +50,7 @@ once that script finishes, the website will be on port 80 and the backend will b
 # set up a cron job to rebuild on commit
 
 sudo apt install cron -y
+sudo chown -R root .  # this is so wrong... sorry about this i'll fix it later
 sudo su
 crontab -e
 
