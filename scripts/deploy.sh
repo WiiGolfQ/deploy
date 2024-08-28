@@ -8,6 +8,10 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# go to the deploy folder
+DEPLOY_DIR="$(dirname "$0")/.."
+cd "$DEPLOY_DIR"
+
 REPO=$1
 
 pushd "$REPO"

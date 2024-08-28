@@ -32,8 +32,10 @@ for dir in "${!repos[@]}"; do
 
     if [ "$LOCAL" != "$REMOTE" ]; then
         echo "Changes detected in $dir. Deploying"
-        bash scripts/deploy.sh "$dir"
+        bash ../scripts/deploy.sh "$dir"
     fi
+
+    popd
 
 done
 
