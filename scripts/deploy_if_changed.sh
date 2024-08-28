@@ -32,9 +32,9 @@ for dir in "${!repos[@]}"; do
 
     if [ "$LOCAL" != "$REMOTE" ]; then
         echo "Changes detected in $dir. Deploying"
-        scripts/deploy.sh "$dir"
+        bash scripts/deploy.sh "$dir"
     fi
-    
+
 done
 
 rm -f "$LOCKFILE"
