@@ -18,7 +18,7 @@ nano .env  #change environment variables: see below
 - `DJANGO_SECRET`
   - i just recommend looking up a random string generator and putting a really long one in here
 - `API_URL`
-  - leave as `http://backend:8000` unless you know what you're doing
+  - leave as `http://backend:8000/v1` unless you know what you're doing
 - `POSTGRES_DB`
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
