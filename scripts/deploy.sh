@@ -22,15 +22,12 @@ echo "$(date) building"
 sudo docker compose rm -f
 sudo docker compose build
 
-OLD_CONTAINER=$(docker ps -aqf name=$REPO)
+# TODO: 0 downtime
 
-echo "$(date) scaling up $1"
-sudo docker compose up -d --no-deps --scale $REPO=2 --no-recreate $REPO
+echo "$(date) stopping old container"
+sudo docker compose down $REPO
 
-sleep 30
-
-echo "$(date) scaling down $1"
-sudo docker container rm -f $OLD_CONTAINER
-sudo docker compose up -d --no-deps --scale $REPO=1 --no-recreate $REPO
+echo "$(date) starting new container"
+sudo docker compose up $REPO -d
 
 echo "$(date) deployed $1"
