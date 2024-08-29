@@ -15,9 +15,10 @@ declare -A repos=(
     ["website"]="https://github.com/WiiGolfQ/website/"
 )
 
-# go to the deploy folder
+# go to the deploy folder and load env variables
 DEPLOY_DIR="$(dirname "$0")/.."
 cd "$DEPLOY_DIR"
+source .env
 
 for dir in "${!repos[@]}"; do
 
