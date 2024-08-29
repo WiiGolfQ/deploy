@@ -1,4 +1,10 @@
-# Deploy instructions
+This repository contains instructions for deploying all the components of WiiGolfQ using Docker.
+
+- [backend](https://github.com/WiiGolfQ/backend)
+- [discord-bot](https://github.com/WiiGolfQ/discord-bot)
+- [website](https://github.com/WiiGolfQ/website)
+
+# Deploy Instructions
 
 ```
 git clone git@github.com:wiigolfq/deploy
@@ -7,44 +13,46 @@ cp .env.example .env
 nano .env  #change environment variables: see below
 ```
 
+
 - `DISCORD_BOT_TOKEN`
-  - token to a discord bot in your server that has admin privileges
+  - Token for a Discord bot in your server that has admin privileges.
 - `QUEUE_CHANNEL_ID`
 - `MATCH_CHANNEL_ID`
 - `LEADERBOARD_CHANNEL_ID`
-  - make channels in your server for each of these things, then copy its id by right clicking with developer mode turned on
-  - match channel should be a forum
+  - Create channels in your server for each of these, then copy their IDs by right-clicking with developer mode turned on.
+  - The match channel should be a forum.
     
 - `DJANGO_SECRET`
-  - i just recommend looking up a random string generator and putting a really long one in here
+  - [A secret key for Django. Should be a long, random string.](https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECRET_KEY)
 - `API_URL`
-  - leave as `http://backend:8000/v1` unless you know what you're doing
+  - Leave as `http://backend:8000/v1` unless you know what you're doing.
 - `POSTGRES_DB`
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
-  - postgres credentials to be used by the db container
+  - Postgres credentials to be used by the `db` container.
 - `POSTGRES_HOST`
-  - leave as `db` unless you know what you're doing
+  - Leave as `db` unless you know what you're doing.
     
 - `DEPLOY_WEBSITE`
-  - skips the website if `false`
+  - Skips the website if `false`.
     
 - `USE_CLOUDFLARE_TUNNEL`
-  - useful if you're hosting without a dedicated ip
-  - more instructions below
+  - Useful if you're hosting without a dedicated IP.
+  - More instructions below.
 
 - `TUNNEL_TOKEN`
-  - the token for your cloudflare tunnel
+  - The token for your Cloudflare tunnel.
      
 - `DEBUG`
-  - leave as `false` in production
+  - Leave as `false` in production.
+ 
  
 ```
 # before running install docker: https://docs.docker.com/engine/install
 sudo bash scripts/setup.sh
 ```
 
-once that script finishes, the website will be on port 80 and the backend will be on port 8000
+Once that script finishes, the website will be on port 80 and the backend will be on port 8000.
 
 ```
 # set up a cron job to rebuild on commit
@@ -62,11 +70,11 @@ add the following to the cronjobs
 */
 ```
 
-# Cloudflare tunnel instructions
-1. follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel#1-create-a-tunnel)
-2. you should see a command it wants you to copy. get the tunnel token from there and set it as `TUNNEL_TOKEN`
-3. in the tunnels dashboard, click on the tunnel -> edit -> public hostname
-4. add the following public hostnames
+# Cloudflare Tunnel Instructions
+1. Follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel#1-create-a-tunnel).
+2. After completing step 6, you should see a command it wants you to copy. Get the tunnel token from there and set it as `TUNNEL_TOKEN`.
+3. In the Tunnels dashboard, click on the tunnel -> Edit -> Public Hostname.
+4. Add the following public hostnames:
   - `your.domain` -> `http://<YOUR MACHINE'S PRIVATE IP>:80`
   - `api.your.domain` -> `http://backend:8000`
 
