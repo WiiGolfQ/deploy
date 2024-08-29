@@ -60,7 +60,6 @@ sudo bash scripts/setup.sh
 
 Once that script finishes, the website will be on port 80 and the backend will be on port 8000.
 
-```
 
 ### Giving the Discord bot write access for the API
 
