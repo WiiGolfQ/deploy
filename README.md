@@ -1,10 +1,12 @@
+# WiiGolfQ/deploy
+
 This repository contains instructions for deploying all the components of WiiGolfQ using Docker.
 
 - [backend](https://github.com/WiiGolfQ/backend)
 - [discord-bot](https://github.com/WiiGolfQ/discord-bot)
 - [website](https://github.com/WiiGolfQ/website)
 
-# Deploy Instructions
+## Deploy Instructions
 
 ```
 git clone git@github.com:wiigolfq/deploy
@@ -70,7 +72,7 @@ add the following to the cronjobs
 */
 ```
 
-# Cloudflare Tunnel Instructions
+## Cloudflare Tunnel Instructions
 1. Follow steps 1-6 of `1. Create a tunnel` [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel#1-create-a-tunnel).
 2. After completing step 6, you should see a command it wants you to copy. Get the tunnel token from there and set it as `TUNNEL_TOKEN`.
 3. In the Tunnels dashboard, click on the tunnel -> Edit -> Public Hostname.
