@@ -10,6 +10,7 @@ services:
             - .env
         environment:
             DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+            DJANGO_AUTH_TOKEN: ${DJANGO_AUTH_TOKEN}
             API_URL: ${API_URL}
             QUEUE_CHANNEL_ID: ${QUEUE_CHANNEL_ID}
             MATCH_CHANNEL_ID: ${MATCH_CHANNEL_ID}
