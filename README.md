@@ -78,7 +78,7 @@ sudo docker compose restart discord-bot
 ```
 
 ### (Optional) Set up a cron job to rebuild on a commit to `main`
-
+```
 sudo apt install cron -y
 sudo chown -R root .  # this is so wrong... sorry about this i'll fix it later
 sudo su
