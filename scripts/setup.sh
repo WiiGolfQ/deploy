@@ -23,7 +23,7 @@ done
 
 docker compose up -d backend discord-bot
 
-docker exec backend python manage.py migrate
+docker compose exec backend python manage.py migrate
 
 if [ "$DEPLOY_WEBSITE" == "true" ]; then
     docker compose up -d website
